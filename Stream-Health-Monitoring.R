@@ -78,6 +78,17 @@ AllCountsAmbient2018_2019 <- subset(AllCountsAmbient, Year %in% c("2018", "2019"
 AllCountsAmbient$CurrentYear <- '2010-2018'
 AllCountsAmbient$CurrentYear[AllCountsAmbient$Year == '2019'] <- '2019'
 
+#if we wanna look at sample map:
+
+Basins <- rgdal::readOGR(dsn = "inputs", layer = "Monitoring_Basins_Project")
+Streams <- raster::shapefile("inputs/Streams_BUGA_WGS.shp")
+Sample_Points <- raster::shapefile("inputs/2018_Ambient_Sample_Locations.shp")
+Sample_Points <- rgdal::readOGR(dsn = "inputs", layer = "2018_Ambient_Sample_Locations")
+
+Basinsdf <- fortify(Basins)
+Streamsdf <- fortify(Streams)
+Sample_Pointsdf <- as.data.frame(Sample_Points)
+
 Sample_Pointsdf$watershed <- c("Perry Creek", "Lower North Creek", "Lower North Creek", "Lower North Creek",
                                "Little Swamp Creek", "Horse Creek", "Horse Creek", "Lower North Creek", 
                                "Lower Sammamish River", "Lower North Creek", "Perry Creek",
